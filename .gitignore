@@ -1,0 +1,11 @@
+build/
+*.exe
+*.exe~
+*.dll
+*.so
+*.dylib
+*.pid
+.env
+.vscode/
+.idea/
+/vendor/
