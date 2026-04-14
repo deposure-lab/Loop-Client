@@ -17,12 +17,12 @@ The simplest way to install or update the AGG Loop Client is via the automated i
 
 ### Installation
 ```bash
-curl -sSL [http://loop-cdn.agglabs.com/install.sh](http://loop-cdn.agglabs.com/install.sh) | sudo bash
+curl -sSL http://loop-cdn.agglabs.com/install.sh | sudo bash
 ```
 
 ### Uninstallation
 ```bash
-curl -sSL [http://loop-cdn.agglabs.com/uninstall.sh](http://loop-cdn.agglabs.com/uninstall.sh) | sudo bash
+curl -sSL http://loop-cdn.agglabs.com/uninstall.sh | sudo bash
 ```
 ---
 
