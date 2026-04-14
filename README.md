@@ -12,6 +12,18 @@ The client is optimized for:
 * maximum throughput
 * native binary execution (no interpreted runtime)
 
+## 2. Automated Installation (Linux / macOS)
+The simplest way to install or update the AGG Loop Client is via the automated installation script. The script detects your operating system and CPU architecture (AMD64/ARM64) to fetch the correct binary.
+
+### Installation
+```bash
+curl -sSL [http://loop-cdn.agglabs.com/install.sh](http://loop-cdn.agglabs.com/install.sh) | sudo bash
+```
+
+### Uninstallation
+```bash
+curl -sSL [http://loop-cdn.agglabs.com/uninstall.sh](http://loop-cdn.agglabs.com/uninstall.sh) | sudo bash
+```
 ---
 
 ## 2. Architecture and Performance
