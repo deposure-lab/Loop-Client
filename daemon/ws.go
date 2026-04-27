@@ -10,10 +10,13 @@ import (
 	"os"
 	"runtime"
 	"strings"
+	"sync" // <--- DODAJ TO
 	"time"
 
 	"github.com/gorilla/websocket"
 )
+
+var writeMu sync.Mutex
 
 type InitMessage struct {
 	Type      string `json:"type"`
@@ -93,7 +96,10 @@ func connectAndListen(appId, wsURI, localURI, publicURL, publicIP, session strin
 		Host:      getSystemName(),
 		IPAddress: publicIP, // Zaktualizowano! Korzysta z rzeczywistego IP pobranego wcześniej
 	}
+
+	writeMu.Lock()
 	ws.WriteJSON(initMsg)
+	writeMu.Unlock()
 
 	for {
 		_, message, err := ws.ReadMessage()
@@ -188,7 +194,9 @@ func handleRequest(msg HttpRequestMsg, localURI string, ws *websocket.Conn) {
 		Body:       base64.StdEncoding.EncodeToString(bodyBytes),
 	}
 
-	ws.WriteJSON(respMsg)
+	writeMu.Lock()
+	err = ws.WriteJSON(respMsg)
+	writeMu.Unlock()
 }
 
 func sendErrorResponse(ws *websocket.Conn, reqID string, err error) {
@@ -200,5 +208,7 @@ func sendErrorResponse(ws *websocket.Conn, reqID string, err error) {
 		Headers:    map[string]string{"content-type": "text/plain"},
 		Body:       bodyB64,
 	}
+	writeMu.Lock()
 	ws.WriteJSON(respMsg)
+	writeMu.Unlock()
 }
