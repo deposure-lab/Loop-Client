@@ -123,7 +123,13 @@ func handleRequest(msg HttpRequestMsg, localURI string, ws *websocket.Conn) {
 
 	var reqBody io.Reader
 	if msg.Body != "" {
-		reqBody = bytes.NewBufferString(msg.Body)
+		decodedBytes, err := base64.StdEncoding.DecodeString(msg.Body)
+		if err != nil {
+			fmt.Printf("Base64 decode error: %v\n", err)
+			reqBody = bytes.NewBufferString(msg.Body)
+		} else {
+			reqBody = bytes.NewReader(decodedBytes)
+		}
 	}
 
 	req, err := http.NewRequest(msg.Method, targetURL, reqBody)
